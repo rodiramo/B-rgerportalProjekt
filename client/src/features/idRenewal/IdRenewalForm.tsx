@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import api from "../../lib/api";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const schema = z.object({
   firstName: z.string().min(1),

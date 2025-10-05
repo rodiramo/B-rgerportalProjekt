@@ -238,13 +238,6 @@ export default function ClerkReviewPage() {
     color: "#991b1b",
     background: "#fff5f5",
   };
-  const card: React.CSSProperties = {
-    border: "1px solid #e5e7eb",
-    borderRadius: 10,
-    padding: 12,
-    marginBottom: 8,
-    background: "#fff",
-  };
 
   return (
     <>
