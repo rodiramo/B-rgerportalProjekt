@@ -13,16 +13,27 @@ import { errorHandler } from "./middleware/errorHandler";
 async function bootstrap() {
   await connectDB();
   const app = express();
+  const staticAllow = new Set([
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "https://buergerportal-projekt-client.vercel.app", // no trailing slash
+  ]);
+  const vercelPreview = /^https:\/\/[a-z0-9-]+\.vercel\.app$/i;
 
   app.use(helmet());
   app.use(
     cors({
-      origin: [
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "https://buergerportal-projekt-client.vercel.app",
-      ],
+      origin(origin, cb) {
+        if (!origin) return cb(null, true); // allow curl/postman
+        if (staticAllow.has(origin) || vercelPreview.test(origin)) {
+          return cb(null, true);
+        }
+        return cb(new Error(`CORS: Origin not allowed: ${origin}`));
+      },
       credentials: true,
+      methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+      allowedHeaders: ["Content-Type", "Authorization"],
+      optionsSuccessStatus: 204,
     })
   );
   app.use(express.json({ limit: "2mb" }));
