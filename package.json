@@ -1,0 +1,11 @@
+{
+  "name": "governmentpage",
+  "private": true,
+  "workspaces": [
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "dev": "npm -w server run dev & npm -w client run dev"
+  }
+}
