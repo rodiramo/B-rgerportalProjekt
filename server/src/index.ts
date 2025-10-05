@@ -17,7 +17,11 @@ async function bootstrap() {
   app.use(helmet());
   app.use(
     cors({
-      origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
+      origin: [
+        "http://localhost:5173",
+        "http://127.0.0.1:5173",
+        "https://buergerportal-projekt-client.vercel.app",
+      ],
       credentials: true,
     })
   );
